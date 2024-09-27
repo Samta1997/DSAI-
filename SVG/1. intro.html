@@ -1,0 +1,70 @@
+<!-- The main difference between vector and raster images is that rasters are pixel-based, 
+ while vectors are created using mathematical formulas for lines, points, and curves. 
+ If you zoom in to a raster image, you will begin to see individual pixels, which can make the 
+ image look grainy or blurry. Vectors, on the other hand, 
+ are infinitely scalable—you can make them as large or as small as you like without losing quality. -->
+
+
+ <!-- SVG (Scalable Vector Graphics) is an XML-based markup language used for describing two-dimensional 
+  vector graphics. It supports interactivity and animation, making it a powerful tool for web graphics. 
+  SVG is scalable, 
+  meaning it can be resized without losing quality, which is a significant advantage over raster graphics. -->
+
+<!-- Basic shapes -->
+
+<!-- Rectangle -->
+<!-- A rectangle with a width of 100 and height of 50, filled with blue color. -->
+<svg width="200" height="100">
+    <rect width="100" height="50" style="fill:blue;"/>
+  </svg>
+  
+  <!-- Circle -->
+  <!-- A circle with center at (100, 100) and radius of 50, filled with green color. -->
+  <svg width="200" height="200">
+    <circle cx="100" cy="100" r="50" style="fill:green;"/>
+  </svg>
+  
+  <!-- Ellipse -->
+  <!-- An ellipse with center at (100, 100), x-radius of 100 and y-radius of 50, filled with red color. -->
+  <svg width="200" height="200">
+    <ellipse cx="100" cy="100" rx="100" ry="50" style="fill:red;"/>
+  </svg>
+  
+  <!-- Line -->
+  <!-- A line starting from (0, 0) to (200, 200), with purple color and stroke width of 2. -->
+  <svg width="200" height="200">
+    <line x1="0" y1="0" x2="200" y2="200" style="stroke:purple; stroke-width:2;"/>
+  </svg>
+  
+  <!-- Polygon -->
+  <!-- A polygon with vertices at specified coordinates, filled with orange color. -->
+  <svg width="200" height="200">
+    <polygon points="100,10 40,198 190,78 10,78 160,198" style="fill:orange;"/>
+  </svg>
+  
+  <!-- Advanced shapes -->
+  
+  <!-- Bar charts -->
+  <!-- A bar chart with three bars of different heights and colors. -->
+  <svg width="400" height="200">
+    <rect x="50" y="150" width="50" height="50" style="fill:blue;"/>   <!-- First bar -->
+    <rect x="150" y="100" width="50" height="100" style="fill:green;"/> <!-- Second bar -->
+    <rect x="250" y="50" width="50" height="150" style="fill:red;"/>    <!-- Third bar -->
+  </svg>
+  
+  <!-- Line charts -->
+  <!-- A line chart represented by connected lines between points. -->
+  <svg width="400" height="200">
+    <line x1="50" y1="150" x2="150" y2="50" style="stroke:blue; stroke-width:2;"/>  <!-- Line segment from point 1 to 2 -->
+    <line x1="150" y1="50" x2="250" y2="100" style="stroke:blue; stroke-width:2;"/>  <!-- Line segment from point 2 to 3 -->
+    <line x1="250" y1="100" x2="350" y2="30" style="stroke:blue; stroke-width:2;"/>   <!-- Line segment from point 3 to 4 -->
+  </svg>
+  
+  <!-- Pie charts -->
+  <!-- A pie chart with different colored segments. -->
+  <svg width="200" height="200">
+    <circle cx="100" cy="100" r="100" fill="lightgray"/>  <!-- Background circle -->
+    <path d="M100,100 L200,100 A100,100 0 0,1 100,0 Z" fill="blue"/>    <!-- First segment -->
+    <path d="M100,100 L100,0 A100,100 0 0,1 0,100 Z" fill="green"/>      <!-- Second segment -->
+  </svg>
+  

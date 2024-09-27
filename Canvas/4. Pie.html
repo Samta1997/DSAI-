@@ -1,0 +1,38 @@
+<!-- Question: You have the following survey results on preferred programming languages: 
+ { "Python": 40%, "Java": 30%, "C++": 20%, "JavaScript": 10% }. How can you represent this data visually?
+Task: Create a pie chart that shows the proportions of each programming language based on the survey results. -->
+
+<canvas id="pieChart" width="500" height="400" style="border:1px solid black;"></canvas>
+<script>
+    const canvas = document.getElementById('pieChart');
+    const context = canvas.getContext('2d');
+
+    // Programming language data
+    const data = { "Python": 40, "Java": 30, "C++": 20, "JavaScript": 10 };
+    const total = Object.values(data).reduce((sum, value) => sum + value, 0);
+    const colors = ['red', 'blue', 'green', 'orange'];
+
+    let startAngle = 0;
+
+    // Draw the pie chart
+    Object.keys(data).forEach((label, index) => {
+        const sliceAngle = (data[label] / total) * 2 * Math.PI; // Calculate the slice angle
+
+        // Draw the slice
+        context.beginPath();
+        context.moveTo(250, 200); // Move to center
+        context.arc(250, 200, 150, startAngle, startAngle + sliceAngle); // Draw the arc
+        context.closePath();
+        context.fillStyle = colors[index];
+        context.fill(); // Fill the slice
+
+        // Update start angle
+        startAngle += sliceAngle;
+
+        // Draw the label
+        const labelX = 250 + (Math.cos(startAngle - sliceAngle / 2) * 70);
+        const labelY = 200 + (Math.sin(startAngle - sliceAngle / 2) * 70);
+        context.fillStyle = 'black';
+        context.fillText(label, labelX, labelY); // Label the slice
+    });
+</script>

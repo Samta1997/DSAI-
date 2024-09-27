@@ -1,0 +1,35 @@
+<!-- Question: Given the monthly average temperatures (in °C) for a year:
+  [15, 16, 18, 20, 25, 30, 32, 31, 28, 24, 20, 16], how would you visualize this as a line chart?
+Task: Draw a line chart that plots the average temperature over the months, clearly labeling the
+ x-axis (months) and y-axis (temperature). -->
+
+<canvas id="lineChart" width="500" height="400" style="border:1px solid black;"></canvas>
+<script>
+    const canvas = document.getElementById('lineChart');
+    const context = canvas.getContext('2d');
+
+    // Temperature data
+    const temperatures = [15, 16, 18, 20, 25, 30, 32, 31, 28, 24, 20, 16];
+    const months = Array.from({ length: 12 }, (_, i) => i + 1); // Month numbers
+
+    const maxTemp = Math.max(...temperatures);
+    const minTemp = Math.min(...temperatures);
+
+    // Draw the line chart
+    context.beginPath();
+    context.moveTo(50, canvas.height - ((temperatures[0] - minTemp) / (maxTemp - minTemp) * (canvas.height - 50))); // Starting point
+
+    temperatures.forEach((temp, index) => {
+        const x = 50 + index * 40; // X position
+        const y = canvas.height - ((temp - minTemp) / (maxTemp - minTemp) * (canvas.height - 50)); // Y position
+        context.lineTo(x, y); // Connect the points
+    });
+
+    context.strokeStyle = 'blue';
+    context.stroke(); // Draw the line
+
+    // Draw x-axis labels
+    months.forEach((month, index) => {
+        context.fillText(month, 50 + index * 40, canvas.height - 5);
+    });
+</script>

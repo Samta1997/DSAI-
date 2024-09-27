@@ -1,0 +1,47 @@
+<!-- Question: You have the following sales data for different products: 
+ { "Laptops": 150, "Desktops": 100, "Tablets": 80, "Smartphones": 200 }.
+   How would you visualize this data using a bar chart?
+Task: Create a bar chart where the x-axis represents products and the y-axis represents sales. 
+Use different colors for each bar. -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="barChart" width="500" height="400" style="border:1px solid black;"></canvas>
+<script>
+    const canvas = document.getElementById('barChart');
+    const context = canvas.getContext('2d');
+
+    // Sales data
+    const data = { "Laptops": 150, "Desktops": 100, "Tablets": 80, "Smartphones": 200 };
+    const categories = Object.keys(data);
+    const values = Object.values(data);
+
+    const barWidth = 50;
+    const gap = 20;
+    const maxHeight = Math.max(...values);
+
+    // Draw the bars
+    categories.forEach((category, index) => {
+        const barHeight = (values[index] / maxHeight) * (canvas.height - 50); // Scale bar height
+        console.log(barHeight)
+        const x = index * (barWidth + gap) + 50; // Position bars with gap
+        const y = canvas.height - barHeight - 20; // Calculate y position
+        console.log(x)
+        console.log(y)
+
+        context.fillStyle = 'blue';
+        context.fillRect(x, y, barWidth, barHeight); // Draw the bar
+        context.fillStyle = 'black';
+        context.fillText(category, x, canvas.height -5); // Label the bar
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!-- Question: You have a dataset of student exam scores: [65, 70, 75, 80, 85, 90, 95, 100]. 
+ How can you visualize the distribution of these scores?
+Task: Create a histogram showing the frequency of score ranges (e.g., 60-70, 71-80, etc.) 
+to illustrate the distribution of scores. -->
+
+    <canvas id="histogram" width="500" height="400" style="border:1px solid black;"></canvas>
+<script>
+    const canvas = document.getElementById('histogram');
+    const context = canvas.getContext('2d');
+
+    // Exam scores
+    const scores = [65, 70, 75, 80, 85, 90, 95, 100];
+    const bins = [60, 70, 80, 90, 100]; // Score ranges
+    const counts = new Array(bins.length).fill(0);
+
+    // Count scores in bins
+    scores.forEach(score => {
+        for (let i = 0; i < bins.length; i++) {
+            if (score <= bins[i]) {
+                counts[i]++;
+                break;
+            }
+        }
+    });
+
+    const barWidth = 40;
+    const gap = 20;
+    const maxCount = Math.max(...counts);
+
+    // Draw the histogram
+    counts.forEach((count, index) => {
+        const barHeight = (count / maxCount) * (canvas.height - 50); // Scale bar height
+        const x = index * (barWidth + gap) + 50; // Position bars
+        const y = canvas.height - barHeight - 20; // Calculate y position
+
+        context.fillStyle = 'green';
+        context.fillRect(x, y, barWidth, barHeight); // Draw the bar
+        context.fillStyle = 'black';
+        context.fillText(`Range ${bins[index-1] || 0}-${bins[index]}`, x, canvas.height - 5); // Label the bar
+    });
+</script>

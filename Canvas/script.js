@@ -11,17 +11,17 @@
     context.fillRect(150, 150, 100, 100);  // Draw a rectangle at (50, 50) with width 150 and height 100(x,y,width,height)
 
     // // Drawing a stroked (outlined) rectangle
-    context.strokeStyle = 'red';  // Set the stroke color to red
-    context.lineWidth = 5;        // Set the line width for the stroke
-    context.strokeRect(200, 400, 200, 200);  // Draw an outlined rectangle
+    // context.strokeStyle = 'red';  // Set the stroke color to red
+    // context.lineWidth = 5;        // Set the line width for the stroke
+    // context.strokeRect(200, 400, 200, 200);  // Draw an outlined rectangle
 
     // // Drawing a line
-    context.beginPath();  // Start a new path (necessary for lines and shapes)
-    context.moveTo(0, 0);  // Set the starting point of the line at (50, 200)
-    context.lineTo(500, 500);  // Draw a line to (400, 200)
-    context.strokeStyle = 'green';  // Set the stroke color to green
-    context.lineWidth = 3;  // Set the line width
-    context.stroke();  // Render the line
+    // context.beginPath();  // Start a new path (necessary for lines and shapes)
+    // context.moveTo(0, 0);  // Set the starting point of the line at (50, 200)
+    // context.lineTo(500, 500);  // Draw a line to (400, 200)
+    // context.strokeStyle = 'green';  // Set the stroke color to green
+    // context.lineWidth = 3;  // Set the line width
+    // context.stroke();  // Render the line
     
     // // Drawing a circle (using arc method)
     // context.beginPath();  // Start a new path

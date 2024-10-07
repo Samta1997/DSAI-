@@ -1,0 +1,9 @@
+{
+    "categories": [
+        { "name": "Apples", "value": 50 },
+        { "name": "Bananas", "value": 30 },
+        { "name": "Oranges", "value": 40 },
+        { "name": "Grapes", "value": 60 },
+        { "name": "Mangoes", "value": 35 }
+    ]
+}

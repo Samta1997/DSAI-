@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Table and Bar Chart</title>
+    <style>
+        /* Style for the table */
+        table {
+            width: 50%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 18px;
+            text-align: left;
+        }
+        table th, table td {
+            padding: 12px;
+            border: 1px solid #dddddd;
+        }
+        table th {
+            background-color: #f2f2f2;
+        }
+        /* Style for the bar chart */
+        canvas {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Data Table and Simple Bar Chart</h1>
+
+    <!-- Table to display data -->
+    <table id="dataTable">
+        <thead>
+            <tr>
+                <th>Category</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Data will be dynamically added here -->
+        </tbody>
+    </table>
+
+    <!-- Canvas for the bar chart -->
+    <canvas id="barChart" width="600" height="400"></canvas>
+
+    <!-- JavaScript to handle file reading and drawing -->
+    <script>
+        // Function to load the data from a .txt file
+        function loadData() {
+            fetch('data.txt') // Reading the data.txt file
+                .then(response => response.text()) // Convert to plain text
+                .then(data => {
+                    const parsedData = parseData(data); // Parsing the data
+                    drawTable(parsedData); // Drawing the data table
+                    drawBarChart(parsedData); // Drawing the bar chart
+                })
+                .catch(error => console.error('Error reading data:', error));
+        }
+
+        // Function to parse the data (assumes each line has format "Category:Value")
+        function parseData(data) {
+            const lines = data.trim().split('\n'); // Split the file by lines
+            return lines.map(line => {
+                const [category, value] = line.split(':'); // Split each line by colon
+                return { category: category.trim(), value: parseInt(value.trim()) }; // Return object {category, value}
+            });
+        }
+
+        // Function to draw the data table
+        function drawTable(parsedData) {
+            const tableBody = document.querySelector('#dataTable tbody'); // Get the table body element
+
+            parsedData.forEach(item => {
+                const row = document.createElement('tr'); // Create a table row
+                const categoryCell = document.createElement('td'); // Create a cell for the category
+                const valueCell = document.createElement('td'); // Create a cell for the value
+                
+                categoryCell.textContent = item.category; // Set category text
+                valueCell.textContent = item.value; // Set value text
+                
+                row.appendChild(categoryCell); // Append the category cell to the row
+                row.appendChild(valueCell); // Append the value cell to the row
+                tableBody.appendChild(row); // Append the row to the table body
+            });
+        }
+
+        // Function to draw the bar chart using HTML5 Canvas
+        function drawBarChart(parsedData) {
+            const canvas = document.getElementById('barChart');
+            const ctx = canvas.getContext('2d');
+            const barWidth = 40;
+            const barGap = 20;
+            const chartHeight = 300;
+            const chartWidth = 600;
+
+            // Clear canvas before drawing
+            ctx.clearRect(0, 0, chartWidth, chartHeight);
+
+            // Find maximum value for scaling
+            const maxValue = Math.max(...parsedData.map(item => item.value));
+
+            // Draw each bar
+            parsedData.forEach((item, index) => {
+                const barHeight = (item.value / maxValue) * chartHeight; // Calculate the height of the bar based on value
+                const x = index * (barWidth + barGap); // X position for each bar
+                const y = chartHeight - barHeight; // Y position for each bar
+
+                // Draw the bar
+                ctx.fillStyle = 'blue';
+                ctx.fillRect(x, y, barWidth, barHeight);
+
+                // Draw the category label below each bar
+                ctx.fillStyle = 'black';
+                ctx.fillText(item.category, x + 5, chartHeight + 20);
+            });
+        }
+
+        // Load data when the page loads
+        window.onload = loadData;
+    </script>
+</body>
+</html>
+
+
+<!-- Explaination of each step  -->
+ <!-- 
+
+ a. HTML Structure
+The <table> tag is used to display the data from the .txt file.
+The <canvas> element is used for drawing the bar chart using the HTML5 Canvas API.
+
+b. JavaScript Code
+
+loadData() Function:
+This function is called when the page loads (window.onload = loadData;).
+It uses fetch() to load the data.txt file, which contains the data in the format Category:Value.
+Once the data is loaded, it passes it to the parseData() function.
+
+parseData(data) Function:
+This function splits the data into lines using split('\n') and then splits each line by the colon (:).
+It returns an array of objects where each object contains a category and a value.
+
+drawTable(parsedData) Function:
+This function dynamically creates rows for the HTML table based on the parsed data.
+For each data object, it creates a table row (<tr>), adds cells for the category and value, and appends it to the table.
+
+drawBarChart(parsedData) Function:
+This function uses the HTML5 Canvas API to draw a bar chart.
+It loops through the parsed data and draws a rectangle for each data point. The height of each bar is proportional to the value relative to the maximum value in the dataset.
+Category labels are added below each bar. -->

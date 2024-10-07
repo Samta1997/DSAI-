@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSV Data Table and Custom Column Bar Chart</title>
+    <style>
+        /* Style for the table */
+        table {
+            width: 50%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 18px;
+            text-align: left;
+        }
+        table th, table td {
+            padding: 12px;
+            border: 1px solid #dddddd;
+        }
+        table th {
+            background-color: #f2f2f2;
+        }
+        /* Style for the bar chart */
+        canvas {
+            margin-top: 20px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>CSV Data Table and Custom Column Bar Chart</h1>
+
+    <!-- Table to display CSV data -->
+    <table id="dataTable">
+        <thead>
+            <tr>
+                <th>Category</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Data will be dynamically added here -->
+        </tbody>
+    </table>
+
+    <!-- Canvas for the bar chart -->
+    <canvas id="barChart" width="600" height="400"></canvas>
+
+    <!-- JavaScript to handle file reading and drawing -->
+    <script>
+        // Function to load CSV data
+        function loadCSV() {
+            fetch('data.csv') // Replace with the correct path to your CSV file
+                .then(response => response.text())
+                .then(data => {
+                    const parsedData = parseCSV(data); // Parse the CSV data
+                    drawTable(parsedData); // Draw the data table
+                    drawBarChart(parsedData); // Draw the custom bar chart
+                })
+                .catch(error => console.error('Error reading CSV:', error));
+        }
+
+        // Function to parse the CSV data (assumes "Category,Value" format)
+        function parseCSV(data) {
+            const lines = data.trim().split('\n'); // Split by lines
+            return lines.slice(1).map(line => { // Skip the header row
+                const [category, value] = line.split(','); // Split each line by comma
+                return { category: category.trim(), value: parseInt(value.trim()) }; // Return an object {category, value}
+            });
+        }
+
+        // Function to draw the data table
+        function drawTable(parsedData) {
+            const tableBody = document.querySelector('#dataTable tbody'); // Get the table body element
+
+            parsedData.forEach(item => {
+                const row = document.createElement('tr'); // Create a new table row
+                const categoryCell = document.createElement('td'); // Create a cell for category
+                const valueCell = document.createElement('td'); // Create a cell for value
+
+                categoryCell.textContent = item.category; // Set the category text
+                valueCell.textContent = item.value; // Set the value text
+
+                row.appendChild(categoryCell); // Append category cell to row
+                row.appendChild(valueCell); // Append value cell to row
+                tableBody.appendChild(row); // Append row to table body
+            });
+        }
+
+        // Function to draw the bar chart using HTML5 canvas
+        function drawBarChart(parsedData) {
+            const canvas = document.getElementById('barChart');
+            const ctx = canvas.getContext('2d');
+
+            // Clear any existing content on the canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            const maxValue = Math.max(...parsedData.map(item => item.value)); // Find the max value
+            const barWidth = 50; // Width of each bar
+            const barGap = 20; // Gap between bars
+            const chartHeight = canvas.height - 50; // Leave space at the top for labels
+            const chartWidth = canvas.width;
+
+            // Draw bars
+            parsedData.forEach((item, index) => {
+                const barHeight = (item.value / maxValue) * chartHeight; // Scale bar height according to the max value
+                const barX = index * (barWidth + barGap) + barGap; // Calculate the X position of the bar
+                const barY = chartHeight - barHeight; // Y position of the bar (from bottom)
+
+                // Draw the bar
+                ctx.fillStyle = '#4CAF50'; // Bar color
+                ctx.fillRect(barX, barY, barWidth, barHeight);
+
+                // Add category labels below each bar
+                ctx.fillStyle = '#000'; // Text color
+                ctx.font = '14px Arial';
+                ctx.fillText(item.category, barX + barWidth / 4, chartHeight + 20); // Adjust text position
+
+                // Add value labels above each bar
+                ctx.fillText(item.value, barX + barWidth / 4, barY - 10);
+            });
+        }
+
+        // Load the CSV data when the page loads
+        window.onload = loadCSV;
+    </script>
+</body>
+</html>

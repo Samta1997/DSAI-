@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<categories>
+    <category>
+        <name>Apples</name>
+        <value>50</value>
+    </category>
+    <category>
+        <name>Bananas</name>
+        <value>30</value>
+    </category>
+    <category>
+        <name>Oranges</name>
+        <value>40</value>
+    </category>
+    <category>
+        <name>Grapes</name>
+        <value>60</value>
+    </category>
+    <category>
+        <name>Mangoes</name>
+        <value>35</value>
+    </category>
+</categories>

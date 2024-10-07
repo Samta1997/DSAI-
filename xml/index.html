@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XML Data Table and Simple Chart</title>
+    <style>
+        /* Table styling */
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        /* Canvas styling */
+        canvas {
+            margin-top: 20px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>XML Data Table and Simple Chart</h1>
+
+    <!-- Button to load XML data -->
+    <button onclick="loadXML()">Load XML Data</button>
+
+    <!-- Table to display XML data -->
+    <table id="dataTable">
+        <thead>
+            <tr>
+                <th>Category</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <!-- Canvas for drawing the chart -->
+    <canvas id="simpleChart" width="500" height="400"></canvas>
+
+    <script>
+        // Function to load the XML file
+        function loadXML() {
+            fetch('data.xml') // Replace 'data.xml' with the correct path to your XML file
+                .then(response => response.text())
+                .then(data => {
+                    const parser = new DOMParser();
+                    const xmlDoc = parser.parseFromString(data, "text/xml");
+                    processXML(xmlDoc);
+                })
+                .catch(error => console.error('Error loading XML:', error));
+        }
+
+        // Function to process the XML data and display it in a table
+        function processXML(xmlDoc) {
+            const categories = xmlDoc.getElementsByTagName("category");
+            const tableBody = document.querySelector('#dataTable tbody');
+            tableBody.innerHTML = ''; // Clear previous table rows
+
+            const data = [];
+            
+            for (let i = 0; i < categories.length; i++) {
+                const categoryName = categories[i].getElementsByTagName("name")[0].textContent;
+                const categoryValue = parseInt(categories[i].getElementsByTagName("value")[0].textContent);
+
+                // Add to the table
+                const row = document.createElement('tr');
+                const categoryCell = document.createElement('td');
+                const valueCell = document.createElement('td');
+                categoryCell.textContent = categoryName;
+                valueCell.textContent = categoryValue;
+                row.appendChild(categoryCell);
+                row.appendChild(valueCell);
+                tableBody.appendChild(row);
+
+                // Collect data for the chart
+                data.push({ name: categoryName, value: categoryValue });
+            }
+
+            // Draw the simple chart after table generation
+            drawSimpleChart(data);
+        }
+
+        // Function to draw a simple chart using canvas
+        function drawSimpleChart(data) {
+            const canvas = document.getElementById('simpleChart');
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+
+            const maxValue = Math.max(...data.map(item => item.value));
+            const barWidth = 50;
+            const chartHeight = 300;
+            const maxBarHeight = 250;
+            const xOffset = 50;
+
+            // Draw bars
+            data.forEach((item, index) => {
+                const barHeight = (item.value / maxValue) * maxBarHeight;
+                const x = xOffset + index * (barWidth + 20);
+                const y = chartHeight - barHeight;
+
+                // Draw the bar
+                ctx.fillStyle = '#4CAF50';
+                ctx.fillRect(x, y, barWidth, barHeight);
+
+                // Draw labels
+                ctx.fillStyle = '#000';
+                ctx.font = '14px Arial';
+                ctx.fillText(item.name, x + 10, chartHeight + 20); // Category label
+                ctx.fillText(item.value, x + 15, y - 10); // Value label
+            });
+        }
+    </script>
+</body>
+</html>

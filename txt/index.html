@@ -14,7 +14,7 @@
             text-align: left;
         }
         table th, table td {
-            padding: 12px;
+            padding: 12px; 
             border: 1px solid #dddddd;
         }
         table th {
@@ -52,8 +52,12 @@
         function loadData() {
             fetch('data.txt') // Reading the data.txt file
                 .then(response => response.text()) // Convert to plain text
+               
                 .then(data => {
+                    
                     const parsedData = parseData(data); // Parsing the data
+                    console.log(parseData)
+
                     drawTable(parsedData); // Drawing the data table
                     drawBarChart(parsedData); // Drawing the bar chart
                 })
@@ -63,23 +67,31 @@
         // Function to parse the data (assumes each line has format "Category:Value")
         function parseData(data) {
             const lines = data.trim().split('\n'); // Split the file by lines
+            console.log(lines)
             return lines.map(line => {
                 const [category, value] = line.split(':'); // Split each line by colon
-                return { category: category.trim(), value: parseInt(value.trim()) }; // Return object {category, value}
+                return { category: category, value: value }; // Return object {category, value}
             });
         }
 
         // Function to draw the data table
         function drawTable(parsedData) {
             const tableBody = document.querySelector('#dataTable tbody'); // Get the table body element
+           console.log(parsedData)
 
             parsedData.forEach(item => {
                 const row = document.createElement('tr'); // Create a table row
                 const categoryCell = document.createElement('td'); // Create a cell for the category
                 const valueCell = document.createElement('td'); // Create a cell for the value
+
+               
+
+
                 
                 categoryCell.textContent = item.category; // Set category text
                 valueCell.textContent = item.value; // Set value text
+                console.log(valueCell)
+                console.log(categoryCell)
                 
                 row.appendChild(categoryCell); // Append the category cell to the row
                 row.appendChild(valueCell); // Append the value cell to the row
@@ -89,7 +101,8 @@
 
         // Function to draw the bar chart using HTML5 Canvas
         function drawBarChart(parsedData) {
-            const canvas = document.getElementById('barChart');
+            const canvas = document.querySelector('#barChart');
+          
             const ctx = canvas.getContext('2d');
             const barWidth = 40;
             const barGap = 20;

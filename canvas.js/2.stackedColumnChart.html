@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stacked Column Chart using CanvasJS</title>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script> <!-- Include CanvasJS Script -->
+</head>
+<body>
+    <h2>Stacked Column Chart</h2>
+    <div id="stackedColumnChart" style="height: 370px; width: 100%;"></div> <!-- The div where the stacked column chart will be rendered -->
+
+    <script>
+        // Creating a new CanvasJS Chart for Stacked Column Chart
+        var chart = new CanvasJS.Chart("stackedColumnChart", {
+            theme: "light2", // Theme of the chart (light or dark)
+            title: {
+                text: "Quarterly Sales Breakdown" // The title of the chart
+            },
+            axisY: {
+                title: "Total Sales", // Y-Axis title
+                includeZero: true // Ensures that the Y-Axis starts from 0
+            },
+            data: [
+                { // Product A Data Series
+                    type: "stackedColumn", // Specifies that this is a stacked column chart
+                    name: "Product A", // Name of the first series (this will show up in the legend)
+                    showInLegend: true, // Displays the name in the legend
+                    dataPoints: [
+                        { label: "Q1", y: 20 },
+                        { label: "Q2", y: 30 },
+                        { label: "Q3", y: 40 },
+                        { label: "Q4", y: 50 }
+                    ]
+                },
+                { // Product B Data Series
+                    type: "stackedColumn", // Stacked column chart for the second series
+                    name: "Product B", // Name of the second series
+                    showInLegend: true, // Displays the name in the legend
+                    dataPoints: [
+                        { label: "Q1", y: 15 },
+                        { label: "Q2", y: 25 },
+                        { label: "Q3", y: 35 },
+                        { label: "Q4", y: 45 }
+                    ]
+                },
+                { // Product C Data Series
+                    type: "stackedColumn", // Stacked column chart for the third series
+                    name: "Product C", // Name of the third series
+                    showInLegend: true, // Displays the name in the legend
+                    dataPoints: [
+                        { label: "Q1", y: 10 },
+                        { label: "Q2", y: 20 },
+                        { label: "Q3", y: 30 },
+                        { label: "Q4", y: 40 }
+                    ]
+                }
+            ]
+        });
+
+        chart.render(); // Renders the stacked column chart on the page
+    </script>
+</body>
+</html>

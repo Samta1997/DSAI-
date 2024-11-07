@@ -27,7 +27,7 @@
     <h1>JSON Data Table and Simple Chart</h1>
 
     <!-- Button to load JSON data -->
-    <button onclick="loadJSON()">Load JSON Data</button>
+    <button onmouseenter="loadJSON()">Load JSON Data</button>
 
     <!-- Table to display JSON data -->
     <table id="dataTable">
@@ -60,10 +60,12 @@
             tableBody.innerHTML = ''; // Clear previous table rows
 
             const chartData = [];
+            console.log(data)
 
             // Iterate over the JSON data
             data.categories.forEach(item => {
                 // Add to the table
+                
                 const row = document.createElement('tr');
                 const categoryCell = document.createElement('td');
                 const valueCell = document.createElement('td');

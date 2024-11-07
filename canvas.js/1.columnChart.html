@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Column Chart using CanvasJS</title>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script> <!-- Include CanvasJS Script -->
+</head>
+ <body>
+    <h2>Simple Column Chart</h2>
+    <div id="columnChart" style="height: 370px; width: 100%;"></div> <!-- The div where the chart will be rendered -->
+
+    <script>
+        // Creating a new CanvasJS Chart
+        var chart = new CanvasJS.Chart("columnChart", {
+            theme: "dark1", // Theme of the chart (light or dark) ight1", "light2", "dark1", or "dark2"
+            title: {
+                text: "Monthly Sales" // The title of the chart
+            },
+            axisY: {
+                title: "Sales Amount", // Y-Axis title
+                includeZero: true // Ensures that the Y-Axis starts from 0
+            },
+            data: [{ // Array to hold data points
+                type: "column", // Specifies that this chart will be a column chart
+                dataPoints: [ // Array of data points (each data point represents a column)
+                    { label: "January", y: 50 },
+                    { label: "February", y: 70 },
+                    { label: "March", y: 80 },
+                    { label: "April", y: 90 },
+                    { label: "May", y: 100 }
+                ]
+            }]
+        });
+
+        chart.render(); // Renders the chart on the page
+    </script>
+</body> 
+</html>

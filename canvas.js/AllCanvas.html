@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Charts with CanvasJS</title>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+</head>
+<body>
+    <h2>Column Chart for Four Age Groups</h2>
+    <div id="columnChartContainer" style="height: 300px; width: 100%;"></div>
+
+    <h2>Line Chart Examples</h2>
+    <div id="lineChartContainer" style="height: 300px; width: 100%;"></div>
+
+    <h2>Pie Chart Examples</h2>
+    <div id="singlePieChartContainer" style="height: 300px; width: 100%;"></div>
+    <div id="multiplePieChartContainer" style="height: 300px; width: 100%;"></div>
+
+    <h2>Bar Chart Examples</h2>
+    <div id="simpleBarChartContainer" style="height: 300px; width: 100%;"></div>
+    <div id="multipleBarChartContainer" style="height: 300px; width: 100%;"></div>
+
+    <script>
+        // Column Chart Data for Four Age Groups
+        let columnChart = new CanvasJS.Chart("columnChartContainer", {
+            animationEnabled: true,
+            title: { text: "Population by Age Group" },
+            data: [{
+                type: "column",
+                dataPoints: [
+                    { label: "0-18", y: 25 },
+                    { label: "19-35", y: 35 },
+                    { label: "36-50", y: 20 },
+                    { label: "51+", y: 15 }
+                ]
+            }]
+        });
+        columnChart.render();
+
+        // Line Chart with single, fewer, and multiple lines
+        let lineChart = new CanvasJS.Chart("lineChartContainer", {
+            animationEnabled: true,
+            title: { text: "Sample Line Chart" },
+            axisY: { title: "Value" },
+            data: [
+                {
+                    type: "line",
+                    name: "Single Line",
+                    showInLegend: true,
+                    dataPoints: [
+                        { x: 1, y: 10 },
+                        { x: 2, y: 20 },
+                        { x: 3, y: 25 },
+                        { x: 4, y: 30 },
+                        { x: 5, y: 40 }
+                    ]
+                },
+                {
+                    type: "line",
+                    name: "Line 1",
+                    showInLegend: true,
+                    dataPoints: [
+                        { x: 1, y: 15 },
+                        { x: 2, y: 25 },
+                        { x: 3, y: 35 },
+                        { x: 4, y: 45 },
+                        { x: 5, y: 55 }
+                    ]
+                },
+                {
+                    type: "line",
+                    name: "Line 2",
+                    showInLegend: true,
+                    dataPoints: [
+                        { x: 1, y: 5 },
+                        { x: 2, y: 15 },
+                        { x: 3, y: 20 },
+                        { x: 4, y: 30 },
+                        { x: 5, y: 50 }
+                    ]
+                }
+            ]
+        });
+        lineChart.render();
+
+        // Single Pie Chart
+        let singlePieChart = new CanvasJS.Chart("singlePieChartContainer", {
+            animationEnabled: true,
+            title: { text: "Single Pie Chart for Age Group Distribution" },
+            data: [{
+                type: "pie",
+                dataPoints: [
+                    { label: "0-18", y: 25 },
+                    { label: "19-35", y: 35 },
+                    { label: "36-50", y: 20 },
+                    { label: "51+", y: 15 }
+                ]
+            }]
+        });
+        singlePieChart.render();
+
+        // Multiple Pie Chart (Two different sets)
+        let multiplePieChart = new CanvasJS.Chart("multiplePieChartContainer", {
+            animationEnabled: true,
+            title: { text: "Multiple Pie Chart for Different Data Sets" },
+            data: [
+                {
+                    type: "pie",
+                    showInLegend: true,
+                    legendText: "Group A",
+                    dataPoints: [
+                        { label: "0-18", y: 20 },
+                        { label: "19-35", y: 30 },
+                        { label: "36-50", y: 25 },
+                        { label: "51+", y: 25 }
+                    ]
+                },
+                {
+                    type: "pie",
+                    showInLegend: true,
+                    legendText: "Group B",
+                    dataPoints: [
+                        { label: "0-18", y: 15 },
+                        { label: "19-35", y: 25 },
+                        { label: "36-50", y: 35 },
+                        { label: "51+", y: 25 }
+                    ]
+                }
+            ]
+        });
+        multiplePieChart.render();
+
+        // Simple Bar Chart
+        let simpleBarChart = new CanvasJS.Chart("simpleBarChartContainer", {
+            animationEnabled: true,
+            title: { text: "Simple Bar Chart" },
+            data: [{
+                type: "bar",
+                dataPoints: [
+                    { label: "Category A", y: 40 },
+                    { label: "Category B", y: 55 },
+                    { label: "Category C", y: 30 }
+                ]
+            }]
+        });
+        simpleBarChart.render();
+
+        // Multiple Bar Chart
+        let multipleBarChart = new CanvasJS.Chart("multipleBarChartContainer", {
+            animationEnabled: true,
+            title: { text: "Multiple Bar Chart" },
+            axisY: { title: "Value" },
+            data: [
+                {
+                    type: "bar",
+                    name: "Set 1",
+                    showInLegend: true,
+                    dataPoints: [
+                        { label: "Category A", y: 30 },
+                        { label: "Category B", y: 50 },
+                        { label: "Category C", y: 40 }
+                    ]
+                },
+                {
+                    type: "bar",
+                    name: "Set 2",
+                    showInLegend: true,
+                    dataPoints: [
+                        { label: "Category A", y: 20 },
+                        { label: "Category B", y: 35 },
+                        { label: "Category C", y: 45 }
+                    ]
+                }
+            ]
+        });
+        multipleBarChart.render();
+    </script>
+</body>
+</html>
